@@ -30,7 +30,7 @@ class TeamListView(ListView):
   serializer_class = TeamSerializer("json", many=True)
   template_name = 'teams.html'
     
- """Overriding default context""" 
+  """Overriding default context""" 
   def get_context_data(self, **kwargs):
         kwargs['league'] = self.league
         kwargs['leaguelist'] = League.objects.all()
@@ -42,7 +42,8 @@ class TeamListView(ListView):
        queryset = self.league.teams
        return queryset
 
-    
+
+"""In progress....."""    
 class MatchListView(ListView):
   """
   Returns a list of all games under a given leauge id

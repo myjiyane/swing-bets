@@ -19,6 +19,5 @@ from leagues import views
 app_name = 'leagues'
 
 urlpatterns = [
-   url(r'^(?P<pk>\d+)/$', views.MatchListView.as_view(), name='match_list'),    
-   url(r'^(?P<pk>\d+)/$', views.TeamListView.as_view(), name='team_list'),
+   url(r'^(?P<pk>\d+)/$', views.TeamListView.as_view(), name='team_list'),  
 ]
