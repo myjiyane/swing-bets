@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %} 
+
+{% block navilinks %} 
+
+{% endblock %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active"><a href="{% url 'home'  %}">Leagues</a></li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block league %}
+<div>
+ <h2> Most leagues </h2>
+<small> Check out the most popular league tables below from around the world. Click any league table to view the full table, home games league table, or away games league table.</small>
+</div> <br/>
+{% endblock %}
+
+{% block content %}
+ <table class="table">
+   <thead class="thead-inverse">
+   <tr> 
+   <th>Name</th>
+   <th>Division</th>
+   <th>Country</th>
+   <th>Federation</th>
+   </tr>
+   </thead>
+   <tbody>
+    {% for league in leagues %}
+    <tr>
+    <td class="align-middle">{{ league.league_name }}</td>
+    <td class="align-middle">{{ league.division }}</td>
+    <td class="align-middle"> {{ league.country_name }} </td>
+    <td class="align-middle"> {{ league.federation_name }}</td>
+    </tr>
+    {% endfor %}
+   </tbody>
+  </table> 
+{% endblock %}

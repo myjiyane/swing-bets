@@ -1,0 +1,178 @@
+{% extends 'base.html'%}
+
+{% block title %} {{ league.league_name}} - {{ block.super }} {% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home'  %}">Leagues</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ league.league_name}}</li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive-sm">
+<table class="table table-sm table-striped table-hover w-auto">
+   <thead class="thead-dark">
+   <tr>
+   <th class="text-center" scope="col">Pos</th>
+   <th scope="col">Team</th>
+   <th class="text-left" scope="col">Pts</th>       
+   <th class="text-left" scope="col">P</th>             
+   <th class="text-left" scope="col">W</th>
+   <th class="text-left" scope="col">D</th> 
+   <th class="text-left" scope="col">L</th>
+   <th class="text-left" scope="col">GD</th>        
+   </tr>
+   </thead>
+   <tbody>
+    {% for team in object_list.all %}
+    <tr>
+     <td class="text-center">{{ team.league_position }}</td>
+     <td class="text-left">{{ team.team_name }}</td>
+     <td class="text-left"> {{ team.points }} </td>    
+     <td class="text-left">{{ team.played }}</td>    
+     <td class="text-left"> {{ team.won }} </td>
+     <td class="text-left"> {{ team.draw }} </td>
+     <td class="text-left"> {{ team.lost }} </td>
+     <td class="text-left"> {{ team.goal_diff }} </td>     
+    </tr>
+    {% endfor %}
+   </tbody>
+  </table> 
+  </div> <br />
+<div class="container">
+ <small><b>View the full table, home games league table, or away games league table and latest team form by clicking on your interested team. </b></small>
+</div> <br />
+
+<h5>Today's English match predictions</h5>
+<div class="table-responsive-lg table-responsive-md table-responsive-sm">
+<table class="table table-lg table-md table-sm table-striped table-bordered table-hover  w-auto">
+    <thead class="thead-dark">
+       <tr>
+          <th>Home - Away </th>
+          <th>1 X 2</th>
+          <th>Prediction</th>
+           <th>odds</th>
+          <th>Results</th>
+       </tr>
+    </thead>
+    <tbody>
+       <tr>
+         {% for match in object_list.all %}
+          <td>{{ match }}</td>  
+         {% endfor  %}
+       </tr>
+    </tbody>
+    </table></div><br />
+
+<h5>Weekend's Premier League predictions</h5>
+<div class="table-responsive-lg table-responsive-md table-responsive-sm">
+<table class="table table-lg table-md table-sm table-striped table-bordered table-hover  w-auto">
+    <thead class="thead-dark">
+       <tr>
+          <th>Home - Away </th>
+          <th>1 X 2</th>
+          <th>Prediction</th>
+           <th>odds</th>
+          <th>Results</th>
+       </tr>
+    </thead>
+    <tbody>
+       <tr>
+          <td>(last five) Liverpool - Arsenal (last five)</td>
+          <td>10</td>
+          <td>12</td>
+          <td>20</td>
+          <td>2:1</td>  
+       </tr>
+    </tbody>
+    </table></div><br />
+<section id="contant" class="contant">
+ <div class="container">
+  <div class="row">  
+    <div class="col-sm-12 col-md-3 col-lg-3 ">  
+    <aside id="sidebar" class="left-bar">    
+    <div>
+     <small>Other Top Leagues:</small>
+    </div>
+
+<div class="table-responsive-lg table-responsive-md table-responsive-sm">        
+ <table class="table table-sm table-striped table-bordered table-hover  w-auto">
+   <thead class="thead-inverse">
+   <tr> 
+   <th>League</th>
+   <th>#</th>
+   </tr>
+   </thead>
+   <tbody>
+    {% for league in leaguelist.all %}
+    <tr>
+    <td class="align-middle">{{ league.league_name }}</td>
+    <td class="align-middle"> {{ league.country_name }} </td>
+    </tr>
+    {% endfor %}
+     </tbody>
+     </table>
+        </div>    
+     </aside> 
+      <br />
+      <aside id="sidebar" class="left-bar">
+        <h5>Top 10 Weekend predictions</h5>    
+        <div class="table-responsive-lg table-responsive-md table-responsive-sm">  
+        <table class="table table-sm table-striped table-bordered table-hover  w-auto">
+         <thead>
+            <tr> 
+                <th>#</th>
+                <th>Game</th>
+                <th>Royal bet</th>
+                <th>Odds</th>
+                <th>Start time</th>
+                <th>Results</th>   
+            </tr>
+         </thead>
+         <tbody>
+            {% for team in object_list.all %}
+          <tr>
+           <td class="text-center">1</td>
+           <td class="text-left">{{ team.team_name }} vs AC Milan</td>
+           <td class="text-left"> 1X </td>    
+           <td class="text-left">2.15</td>    
+           <td class="text-left"> 12:35PM </td>
+           <td class="text-left"> 3:0 </td>      
+         </tr>
+         {% endfor %}
+         </tbody>
+        </table>
+          </div>    
+    <small><b><a href="#">Check other predictions</a></b></small>
+      </aside>
+      </div>   
+      <div class="col-sm-12 col-md-5 col-lg-5">
+        <h3>Advertising Banner</h3> 
+      </div>
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <h5>Latest Football Results</h5> 
+        <small> Check out the latest football scores and todays live results</small>
+        <div class=" table-responsive-sm table-responsive-md table-responsive-lg">
+        <table class="table table-sm table-striped table-bordered table-hover w-auto" >
+         <thead>
+            <tr>
+             <th>Game</th>
+             <th>Score</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+             <td>Liverpool vs Tottenham</td>
+             <td>3:1</td>
+            </tr>
+         </tbody>
+        </table>
+       </div>        
+      </div>  
+    </div> <!-- /.END 1ST ROW --> 
+  </div>     
+</section>    
+{% endblock %}
