@@ -1,0 +1,668 @@
+{% extends 'base.html'%}
+{%load custom_filters %}
+{% block title %} Tips &amp; Predictions - {{ block.super }} {% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home'  %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Predictions</li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+ <small><b>View the full table, home games league table, or away games league table and latest team form by clicking on your interested team. </b></small>
+
+{% if sub_plan == 'Basic' or sub_plan == 'Professional' or sub_plan == 'Expert' %}
+<div class="section section-tabs">
+    <div class="container">
+     <div id="nav-tabs"> 
+       <div class="row">     
+        <div class="col-md-6 col-sm-6 col-lg-12">
+         <h3><small>Straight chances:</small> </h3>
+            <!-- Tabs on Plain Card -->
+              <div class="card card-nav-tabs card-plain">
+                <div class="card-header card-header-info">
+                  <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#yesterday" data-toggle="tab">Yesterday</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#today" data-toggle="tab">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#tomorrow" data-toggle="tab">Tomorrow</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content text-center">
+                    <div class="tab-pane table-responsive-lg table-responsive-md table-responsive-sm" id="yesterday">
+                      <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                           <th width="30%">#</th>
+                           <th>Match</th>
+                           <th>Prediction</th>
+                           <th>Results</th>
+                           <th width="2%"></th>      
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for p in pred_straight.all %}
+                         <tr>
+                          <td>{{ p.league.league_cd }}</td>
+                          <td>{{ p.match.home_team.team_name }} v {{ p.match.away_team.team_name }}</td>
+                          <td>{{ p.prediction|map }}</td>
+                          <td>{{ p.match.score| map }}</td>
+                          <td><a href="#"> match details</a></td>     
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane active" id="today">
+                      <div class="table-responsive">
+                       <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th> 
+                           <th width="2%"></th> 
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for m in pred_straight.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.home_team.team_name }} v {{ m.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.score|map }}</td>
+                          <td><a href="#"> match details</a></td>     
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table> 
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="tomorrow">
+                      <div class="table-responsive">
+                        <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                         <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>      
+                          </tr>
+                         </thead>
+                         <tbody>
+                         {% for m in pred_straight.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.home_team.team_name }} v {{ m.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.score|map }}</td>
+                          <td><a href="#"> match details</a></td>     
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                       </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <!-- End Tabs on plain Card -->
+             <small><b><a href="#">Check other predictions</a></b></small>
+        </div> <!-- End col --> 
+      </div>   <!-- End row -->    
+    </div>     <!-- End nav tabs -->    
+ </div>        <!-- End container -->
+</div>
+{% endif %}
+
+{% if sub_plan == 'Professional' or sub_plan == 'Expert' %}
+<div class="section section-tabs">
+    <div class="container">
+     <div id="nav-tabs"> 
+       <div class="row">     
+        <div class="col-md-6 col-sm-6 col-lg-12">
+         <h3><small>Half chances:</small> </h3>
+            <!-- Tabs on Plain Card -->
+              <div class="card card-nav-tabs card-plain">
+                <div class="card-header card-header-info">
+                  <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#yest1" data-toggle="tab">Yesterday</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#today1" data-toggle="tab">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#tomorrow1" data-toggle="tab">Tomorrow</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content text-center">
+                    <div class="tab-pane table-responsive-lg table-responsive-md table-responsive-sm" id="yest1">
+                      <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                           <th width="30%">#</th>
+                           <th>Match</th>
+                           <th>Prediction</th>
+                           <th>Results</th>
+                           <th width="2%"></th>      
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for p in pred_half.all %}
+                         <tr>
+                          <td>{{ p.league.league_cd }}</td>
+                          <td>{{ p.match.home_team.team_name }} v {{ p.match.away_team.team_name }}</td>
+                          <td>{{ p.prediction|map }}</td>
+                          <td>{{ p.match.score| map }}</td>
+                          <td><a href="#"> match details</a></td>     
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane active" id="today1">
+                      <div class="table-responsive">
+                       <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th> 
+                           <th width="2%"></th>       
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for m in pred_half.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.home_team.team_name }} v {{ m.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.score|map }}</td>
+                          <td><a href="#"> match details</a></td>     
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table> 
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="tomorrow1">
+                      <div class="table-responsive">
+                        <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                         <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>       
+                          </tr>
+                         </thead>
+                         <tbody>
+                         {% for m in pred_half.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.home_team.team_name }} v {{ m.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td> 
+                          <td>{{ m.score|map }}</td>
+                          <td><a href="#"> match details</a></td>       
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                       </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <!-- End Tabs on plain Card -->
+             <small><b><a href="#">Check other predictions</a></b></small>
+        </div> <!-- End col --> 
+      </div>   <!-- End row -->    
+    </div>     <!-- End nav tabs -->    
+ </div>        <!-- End container -->
+</div>
+{% endif %}
+
+{% if sub_plan == 'Free' or sub_plan == 'Basic' or sub_plan == 'Professional' or sub_plan == 'Expert' %}
+<div class="section section-tabs">
+    <div class="container">
+     <div id="nav-tabs"> 
+       <div class="row">     
+        <div class="col-md-6 col-sm-6 col-lg-12">
+         <h3><small>Double chances:</small> </h3>
+            <!-- Tabs on Plain Card -->
+              <div class="card card-nav-tabs card-plain">
+                <div class="card-header card-header-info">
+                  <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#yesterday2" data-toggle="tab">Yesterday</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#today2" data-toggle="tab">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#tomorrow2" data-toggle="tab">Tomorrow</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content text-center">
+                    <div class="tab-pane table-responsive-lg table-responsive-md table-responsive-sm" id="yesterday2">
+                      <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>     
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for p in pred_double.all %}
+                         <tr>
+                          <td>{{ p.league.league_cd }}</td>
+                          <td>{{ p.match.home_team.team_name }} v {{ p.match.away_team.team_name }}</td>
+                          <td>{{ p.prediction|map }}</td>
+                          <td>{{ p.match.score| map }}</td> 
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane active" id="today2">
+                      <div class="table-responsive">
+                       <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>      
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for m in pred_double.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.match.home_team.team_name }} v {{ m.match.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.match.score|map }}</td>  
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table> 
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="tomorrow2">
+                      <div class="table-responsive">
+                        <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                         <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>      
+                          </tr>
+                         </thead>
+                         <tbody>
+                         {% for m in pred_double.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.match.home_team.team_name }} v {{ m.match.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.score|map }}</td>
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                       </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <!-- End Tabs on plain Card -->
+             <small><b><a href="#">Check other predictions</a></b></small>
+        </div> <!-- End col --> 
+      </div>   <!-- End row -->    
+    </div>     <!-- End nav tabs -->    
+ </div>        <!-- End container -->
+</div> 
+{% endif %}
+
+{% if sub_plan == 'Free' or sub_plan == 'Basic' or sub_plan == 'Professional' or sub_plan == 'Expert' %}
+<div class="section section-tabs">
+    <div class="container">
+     <div id="nav-tabs"> 
+       <div class="row">     
+        <div class="col-md-6 col-sm-6 col-lg-12">
+         <h3><small>Under/Over 1.5:</small> </h3>
+            <!-- Tabs on Plain Card -->
+              <div class="card card-nav-tabs card-plain">
+                <div class="card-header card-header-info">
+                  <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#yesterday3" data-toggle="tab">Yesterday</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#today3" data-toggle="tab">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#tomorrow3" data-toggle="tab">Tomorrow</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content text-center">
+                    <div class="tab-pane table-responsive-lg table-responsive-md table-responsive-sm" id="yesterday3">
+                      <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for p in pred_over_under_1.all %}
+                         <tr>
+                          <td>{{ p.league.league_cd }}</td>
+                          <td>{{ p.match.home_team.team_name }} v {{ p.match.away_team.team_name }}</td>
+                          <td>{{ p.prediction|map }}</td>
+                          <td>{{ p.match.score| map }}</td> 
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane active" id="today3">
+                      <div class="table-responsive">
+                       <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th> 
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for m in pred_over_under_1.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.match.home_team.team_name }} v {{ m.match.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.match.score|map }}</td>
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table> 
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="tomorrow3">
+                      <div class="table-responsive">
+                        <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                         <thead class="thead-dark">
+                          <tr>
+                            <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>       
+                          </tr>
+                         </thead>
+                         <tbody>
+                         {% for m in pred_over_under_1.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.match.home_team.team_name }} v {{ m.match.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.match.score|map }}</td> 
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                       </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <!-- End Tabs on plain Card -->
+             <small><b><a href="#">Check other predictions</a></b></small>
+        </div> <!-- End col --> 
+      </div>   <!-- End row -->    
+    </div>     <!-- End nav tabs -->    
+ </div>        <!-- End container -->
+</div>
+{% endif %}
+
+{% if sub_plan == 'Free' or sub_plan == 'Basic' or sub_plan == 'Professional' or sub_plan == 'Expert' %}
+<div class="section section-tabs">
+    <div class="container">
+     <div id="nav-tabs"> 
+       <div class="row">     
+        <div class="col-md-6 col-sm-6 col-lg-12">
+         <h3><small>Under/Over 2.5:</small> </h3>
+            <!-- Tabs on Plain Card -->
+              <div class="card card-nav-tabs card-plain">
+                <div class="card-header card-header-info">
+                  <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#yesterday4" data-toggle="tab">Yesterday</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#today4" data-toggle="tab">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#tomorrow4" data-toggle="tab">Tomorrow</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content text-center">
+                    <div class="tab-pane table-responsive-lg table-responsive-md table-responsive-sm" id="yesterday4">
+                      <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th> 
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for p in pred_over_under_2.all %}
+                         <tr>
+                          <td>{{ p.league.league_cd }}</td>
+                          <td>{{ p.match.home_team.team_name }} v {{ p.match.away_team.team_name }}</td>
+                          <td>{{ p.prediction|map }}</td>
+                          <td>{{ p.match.score| map }}</td> 
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane active" id="today4">
+                      <div class="table-responsive">
+                       <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                           <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>        
+                          </tr>
+                       </thead>
+                        <tbody>
+                         {% for m in pred_over_under_2.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.match.home_team.team_name }} v {{ m.match.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.match.score|map }}</td> 
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                      </table> 
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="tomorrow4">
+                      <div class="table-responsive">
+                        <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+                         <thead class="thead-dark">
+                          <tr>
+                            <th width="2%">#</th>
+                           <th width="2%">Match</th>
+                           <th width="1%">Prediction</th>
+                           <th width="2%">Results</th>
+                           <th width="2%"></th>      
+                          </tr>
+                         </thead>
+                         <tbody>
+                         {% for m in pred_over_under_2.all %}
+                         <tr>
+                          <td>{{ m.league.league_cd }}</td>
+                          <td>{{ m.match.home_team.team_name }} v {{ m.match.away_team.team_name }}</td>
+                          <td>{{ m.prediction|map }}</td>
+                          <td>{{ m.match.score|map }}</td> 
+                          <td><a href="#"> match details</a></td>
+                         </tr>
+                         {% endfor %}
+                        </tbody>
+                       </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <!-- End Tabs on plain Card -->
+             <small><b><a href="#">Check other predictions</a></b></small>
+        </div> <!-- End col --> 
+      </div>   <!-- End row -->    
+    </div>     <!-- End nav tabs -->    
+ </div>        <!-- End container -->
+</div>
+{% endif %}
+
+<h5>Weekend's Premier League predictions</h5>
+<div class="table-responsive-lg table-responsive-md table-responsive-sm">
+<table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+       <tr>
+          <th width="2%">Home - Away </th>
+          <th width="2%">Market</th>
+          <th width="1%">Prediction</th>
+          <th width="2%">odds</th>
+       </tr>
+    </thead>
+    <tbody>
+       {% for p in predictions.all %}
+       <tr>
+          <td>{{ p.match.home_team.team_name }} - {{ p.match.away_team.team_name }}</td>
+          <td>{{ p.market_type }}</td>
+          <td>{{ p.prediction|map }}</td>
+          <td>{{ p.market}}</td>
+       </tr>
+       {% endfor %}
+    </tbody>
+    </table>
+</div><br />
+<section id="contant" class="contant">
+ <div class="container">
+  <div class="row">  
+     <div class="col-sm-12 col-md-6 col-lg-6">
+        <h3>Advertising Banner</h3> 
+      </div> 
+    </div> <!-- /.END 1ST ROW --> 
+  </div>  <br />   
+</section>    
+
+<section id="contant" class="contant">
+ <div class="container">
+  <div class="row"> 
+   <div class="col-lg-6 col-md-4 col-sm-4">
+     <aside id="sidebar" class="left-bar">
+       <h5>Top 10 Weekend predictions</h5>     
+       <div class="table-responsive-lg table-responsive-md table-responsive-sm">  
+         <table class="table table-sm table-striped table-bordered table-hover">
+         <thead>
+            <tr> 
+              <th width="2%">Home - Away </th>
+              <th width="1%">Prediction</th>
+              <th width="2%">Start time</th> 
+            </tr>
+         </thead>
+         <tbody>
+            {% for p in predictions.all %}
+          <tr>
+           <td>{{ p.match.home_team.team_name }} - {{ p.match.away_team.team_name }}</td>
+           <td>{{ p.prediction|map }}</td>
+           <td> {{ p.match.start_time }} </td>     
+         </tr>
+         {% endfor %}
+         </tbody>
+        </table>
+       </div>       
+       <small><b><a href="#">Check other predictions</a></b></small>     
+     </aside>       
+   </div>
+  </div>
+ </div>     
+</section>
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends 'base.html'%}
+{%load custom_filters %}
+{% block title %} {{ league.league_name }} - {{ block.super }} {% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home'  %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'leagues:league-list'  %}">Leagues</a></li>
+    <li class="breadcrumb-item" aria-current="page">{{ league.league_name}}</li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive-sm table-responsive-md table-responsive-lg">
+<table class="table table-sm table-md table-striped table-hover w-auto">
+   <thead class="thead-dark">
+   <tr>
+   <th class="text-center" scope="col">Pos</th>
+   <th scope="col">Team</th>
+   <th class="text-left" scope="col">Pts</th>       
+   <th class="text-left" scope="col">P</th>             
+   <th class="text-left" scope="col">W</th>
+   <th class="text-left" scope="col">D</th> 
+   <th class="text-left" scope="col">L</th>
+   <th class="text-left" scope="col">GD</th>        
+   </tr>
+   </thead>
+   <tbody>
+    {% for team in object_list.all %}
+    <tr>
+     <td class="text-center">{{ team.league_position }}</td>
+     <td class="text-left">{{ team.team_name }}</td>
+     <td class="text-left"> {{ team.points }} </td>    
+     <td class="text-left">{{ team.played }}</td>    
+     <td class="text-left"> {{ team.won }} </td>
+     <td class="text-left"> {{ team.draw }} </td>
+     <td class="text-left"> {{ team.lost }} </td>
+     <td class="text-left"> {{ team.goal_diff }} </td>     
+    </tr>
+    {% endfor %}
+   </tbody>
+  </table> 
+  </div> <br />
+<div class="container">
+ <small><b>View the full table, home games league table, or away games league table and latest team form by clicking on your interested team. </b></small>
+</div> <br />
+
+<h5>Today's English match predictions</h5>
+<div class="table-responsive-lg table-responsive-md table-responsive-sm">
+<table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+       <tr>
+          <th width="2%">Home - Away </th>
+          <th width="2%">Market</th>
+          <th width="1%">Prediction</th>
+          <th width="2%">odds</th>
+          <th width="2%">Results</th>
+       </tr>
+    </thead>
+    <tbody>
+       {% for p in predictions.all %}    
+       <tr>
+         <td>{{ p.match.home_team.team_name }} - {{ p.match.away_team.team_name }}</td>  
+         <td>{{ p.market_type }}</td>
+         <td>{{ p.prediction}}</td>   
+         <td>{{ p.market}}</td>   
+         <td>{{ p.match.score }}</td>     
+       </tr>
+    {% endfor %}
+    </tbody>
+    </table></div><br />
+
+<h5>Weekend's Premier League predictions</h5>
+<div class="table-responsive-lg table-responsive-md table-responsive-sm">
+<table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+       <tr>
+          <th width="2%">Home - Away </th>
+          <th width="2%">Market</th>
+          <th width="1%">Prediction</th>
+          <th width="2%">odds</th>
+          <th width="2%">Results</th>
+       </tr>
+    </thead>
+    <tbody>
+       {% for p in predictions.all %}
+       <tr>
+          <td>{{ p.match.home_team.team_name }} - {{ p.match.away_team.team_name }}</td>
+          <td>{{ p.market_type }}</td>
+          <td>{{ p.prediction}}</td>
+          <td>{{ p.market}}</td>
+          <td> {{ p.match.score }} </td>  
+       </tr>
+       {% endfor %}
+    </tbody>
+    </table>
+</div><br />
+<section id="contant" class="contant">
+ <div class="container">
+  <div class="row">  
+    <div class="col-sm-12 col-md-3 col-lg-3 ">  
+    <aside id="sidebar" class="left-bar">    
+    <div>
+     <small>Other Top Leagues:</small>
+    </div>
+
+<div class="table-responsive-lg table-responsive-md table-responsive-sm">        
+ <table class="table table-sm table-striped table-bordered table-hover">
+   <thead class="thead-inverse">
+   <tr> 
+     <th width="1%">League</th>   
+   </tr>
+   </thead>
+   <tbody>
+     {% for league in leaguelist.all %}
+     <tr>
+     <td class="align-left">{{ league.league_name }} ({{league.country_iso}})</td>
+     </tr>
+    {% endfor %}
+     </tbody>
+ </table>
+</div>    
+     </aside> <br />
+      </div>   
+      <div class="col-sm-12 col-md-5 col-lg-5">
+        <h3>Advertising Banner</h3> 
+      </div>
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <h5>Latest Football Results</h5> 
+        <small> Check out the latest football scores and todays live results</small>
+        <div class=" table-responsive-sm table-responsive-md table-responsive-lg">
+        <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+         <thead>
+            <tr>
+             <th width="4%">Game</th>
+             <th width="2%">Score</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for match in matches.all %}                     
+            <tr>
+= 
+             <td> {{ match.home_team.team_name }} vs {{ match.away_team.team_name }}</td>
+             <td>{{ match.score }}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+        </table>
+       </div>        
+      </div>  
+    </div> <!-- /.END 1ST ROW --> 
+  </div>  <br />   
+</section>    
+
+<section id="contant" class="contant">
+ <div class="container">
+  <div class="row"> 
+   <div class="col-lg-6 col-md-4 col-sm-4">
+     <aside id="sidebar" class="left-bar">
+       <h5>Top 10 Weekend predictions</h5>     
+       <div class="table-responsive-lg table-responsive-md table-responsive-sm">  
+         <table class="table table-sm table-striped table-bordered table-hover">
+         <thead>
+            <tr> 
+              <th width="2%">Home - Away </th>
+              <th width="1%">Prediction</th>
+              <th width="2%">Start time</th> 
+            </tr>
+         </thead>
+         <tbody>
+            {% for p in predictions.all %}
+          <tr>
+           <td>{{ p.match.home_team.team_name }} - {{ p.match.away_team.team_name }}</td>
+           <td>{{ p.prediction}}</td>
+           <td> {{ p.match.start_time }} </td>     
+         </tr>
+         {% endfor %}
+         </tbody>
+        </table>
+       </div>       
+       <small><b><a href="#">Check other predictions</a></b></small>     
+     </aside>       
+   </div>
+  </div>
+ </div>     
+</section>
+{% endblock %}

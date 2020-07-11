@@ -1,0 +1,151 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load custom_filters%}
+{% block title %} Pricing Plan - {{ block.super }} {% endblock %}
+
+{% block stylesheet %} 
+<link rel="stylesheet" href="{% static 'css/base.css' %}"/>
+{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home'  %}">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page"> Pricing Plans </li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<h4><small>Our primary aim is to provide value for all our users. This vison drives all that we do at Betensured. Our pricing plan is inexpensive and tailored to provide real monetary value to all our users</small></h4><br />
+<div class="row">
+ <div id="price">
+  <!--price tab-->
+  <div class="plan">
+    <div class="plan-inner free-plan">
+      <div class="entry-title">
+        <h3>{{ free.plan_descr }}</h3>
+        <div class="price">R{{ free.price }}<span>/per month</span>
+        </div>
+      </div>
+      <div class="entry-content">
+        <ul class="fa-ul">
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Access to <b>{{ free.num_categories }}</b> prediction categories</li>    
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> <b>{{ free.alloc_sets }}</b> Daily sets of expert picks </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span>Email notifications </li>
+          <li><span class="fa-li"><i class="fa fa-times" aria-hidden="true"></i></span> Daily SMS notifications </li>
+          <li><span class="fa-li"><i class="fa fa-times" aria-hidden="true"></i></span>Risk Management </li>      
+          <li><span class="fa-li"><i class="fa fa-times" aria-hidden="true"></i></span>Rolling Total </li>
+        </ul>
+      </div> <br />
+      <div class="cart-option">
+        {% if user.is_authenticated %}  
+         <form method="POST" action="{% url 'upgrade-plan' 'Free' %}">
+          {% csrf_token %}     
+          <button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit" {{ curr_plan|disable_field:"Free" }}><i class="fa fa-shopping-cart"></i> Upgrade </button> 
+          </form>     
+        {% else %} 
+         <a href="{% url 'plan-definition' 'Free' %}"><button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit"><i class="fa fa-shopping-cart"></i> Sign Up </button></a>   
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- end of price tab--> 
+  <!--price tab-->
+  <div class="plan basic">
+    <div class="plan-inner basic-plan">
+      <div class="hot">hot</div>
+      <div class="entry-title">
+        <h3>{{ basic.plan_descr }}</h3>
+        <div class="price">R{{ basic.price }}<span>/per month</span>
+        </div>
+      </div>
+      <div class="entry-content">
+        <ul class="fa-ul">
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Access to <b>{{ basic.num_categories }}</b> prediction categories </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> <b>{{ basic.alloc_sets }}</b> Daily sets of expert picks </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Email notifications + <b>{{ basic.summary_level }}</b></li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> <b>{{ basic.notifications }}</b> Daily SMS notifications </li>
+          <li><span class="fa-li"><i class="fa fa-times" aria-hidden="true"></i></span> Risk Management </li>    
+          <li><span class="fa-li"><i class="fa fa-times" aria-hidden="true"></i></span> Rolling Total </li>    
+        </ul>
+      </div><br />
+      <div class="cart-option">   
+        {% if user.is_authenticated %}  
+         <form method="POST" action="{% url 'upgrade-plan' 'Basic' %}">
+          {% csrf_token %}     
+          <button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit" {{ curr_plan|disable_field:"Basic" }}><i class="fa fa-shopping-cart"></i> Upgrade </button> 
+          </form>     
+        {% else %} 
+         <a href="{% url 'plan-definition' 'Basic' %}"><button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit"><i class="fa fa-shopping-cart"></i> Sign Up </button></a>   
+        {% endif %}   
+      </div>
+    </div>
+  </div>
+  <!-- end of price tab-->
+  <!--price tab-->
+  <div class="plan standard">
+    <div class="plan-inner prof-plan">
+      <div class="entry-title">
+        <h3>{{prof.plan_descr }}</h3>
+        <div class="price">R{{prof.price}}<span>/per month</span>
+        </div>
+      </div>
+      <div class="entry-content">
+        <ul class="fa-ul">
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Access to <b>{{ prof.num_categories}}</b> prediction categories </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> <b>{{ prof.alloc_sets }}</b> Daily sets of expert picks </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Email notifications + <b>{{ prof.summary_level }}</b> </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> <b>{{ prof.notifications }}</b> Daily SMS notifications </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> {{ prof.risk }} Risk Management </li>    
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Rolling Total </li>    
+        </ul>
+      </div><br />
+      <div class="cart-option">
+       {% if user.is_authenticated %}  
+         <form method="POST" action="{% url 'upgrade-plan' 'Professional' %}">
+          {% csrf_token %}     
+          <button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit" {{ curr_plan|disable_field:"Professional" }}><i class="fa fa-shopping-cart"></i> Upgrade </button> 
+          </form>     
+        {% else %} 
+         <a href="{% url 'plan-definition' 'Professional' %}"><button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit"><i class="fa fa-shopping-cart"></i> Sign Up </button></a>   
+        {% endif %}     
+      </div>
+    </div>
+  </div>
+  <!-- end of price tab-->
+  <!--price tab-->
+  <div class="plan ultimate">
+    <div class="plan-inner expert-plan">
+      <div class="entry-title">
+        <h3>{{ expert.plan_descr }} Advisor</h3>
+        <div class="price">R{{expert.price }}<span>/per month</span>
+        </div>
+      </div>
+      <div class="entry-content">
+        <ul class="fa-ul">
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Access to <b>{{ expert.num_categories }}</b> prediction categories </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> <b>{{expert.alloc_sets }}</b> Daily sets of expert picks </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Email notifications + <b>{{ prof.summary_level }} </b> </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> <b>{{ prof.notifications }}</b> Daily SMS notifications </li>
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> {{ prof.risk }} Risk Management </li>    
+          <li><span class="fa-li"><i class="fa fa-check" aria-hidden="true"></i></span> Rolling Total </li>
+        </ul>
+      </div> <br />
+      <div class="cart-option">
+       {% if user.is_authenticated %}  
+         <form method="POST" action="{% url 'upgrade-plan' 'Expert' %}">
+          {% csrf_token %}     
+          <button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit" {{ curr_plan|disable_field:"Expert" }}><i class="fa fa-shopping-cart"></i> Upgrade </button> 
+          </form>     
+        {% else %} 
+         <a href="{% url 'plan-definition' 'Expert' %}"><button class="btn btn-responsive btn-warning btn-round btn-sm" type="submit"><i class="fa fa-shopping-cart"></i> Sign Up </button></a>   
+        {% endif %}     
+      </div>
+    </div>
+  </div>
+  <!-- end of price tab-->
+</div>     
+</div>    
+{% endblock %}

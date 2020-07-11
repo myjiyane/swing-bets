@@ -1,0 +1,53 @@
+{% extends 'base_accounts.html'%}
+{% load static custom_filters %}
+{% block title %} Sign Up - {{ block.super }} {% endblock %}
+
+{% block content %}
+<h1 class="text-center logo my-4"> <a class="navbar-brand" href="{% url 'home' %}"> Rouge Predictions </a></h1>
+
+<div class="row justify-content-center">
+  <div class="col-lg-4 col-md-4 col-sm-6 ml-auto mr-auto">
+    <div class="form-group has-success disabled">    
+      <input value="{{ request.session.preferred_plan }} Plan" type="text" class="form-control text-center" disabled>
+      <a href="{% url 'membership-plans' %}"><small style="color: purple;">Choose another plan?</small></a> 
+    </div>  
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-5 col-md-5 col-sm-12 ml-auto mr-auto">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Sign up</h3>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% include 'includes/form.html' %}
+          <button type="submit" class="btn btn-responsive btn-info btn-sm btn-block">Create an account</button>
+        </form>
+      </div>
+      <div class="card-footer text-muted text-center">
+        Already have an account? <a href="{% url 'login' %}">Log in</a>
+        </div>
+   </div>   
+   <p class="description text-muted text-center"><b>Or register with your social media account:</b></p> 
+    <div class="card">
+    <div class="card-body">  
+    <div class="card-header card-header-primary text-center">
+       <h4 class="card-title">Social Login </h4>
+       <div class="social-line">
+         <a href="#pablo" class="btn btn-just-icon btn-link" rel="tooltip" data-placement="bottom" data-original-title="Sign up with FaceBook">
+             <span><i class="fa fa-facebook-square" aria-hidden="true" style="color: white;"></i></span>
+         </a>
+         <a href="#pablo" class="btn btn-just-icon btn-link" rel="tooltip" data-placement="bottom" data-original-title="Sign up with Google">
+             <span><i class="fa fa-google-plus" aria-hidden="true" style="color: white;"></i></span>
+         </a>
+         <a href="#pablo" class="btn btn-just-icon btn-link" rel="tooltip" data-placement="bottom" data-original-title="Sign up with Twitter">
+             <span><i class="fa fa-twitter" aria-hidden="true" style="color: white;"></i></span>
+         </a>   
+       </div>
+     </div>
+    </div>
+   </div>
+  </div>
+</div>
+{% endblock %}

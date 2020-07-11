@@ -1,16 +1,8 @@
-body {
-  background-image: url(../img/preview.jpg);
+
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+.signup-form{
+  background-image: url(../img/darks.png);  
 }
 
-.logo {
-  font-family: 'Peralta', cursive;
-}
-
-.logo a {
-  color: rgba(0,0,0,.9);
-}
-
-.logo a:hover,
-.logo a:active {
-  text-decoration: none;
-}

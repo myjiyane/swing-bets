@@ -18,6 +18,13 @@ from leagues import views
 
 app_name = 'leagues'
 
-urlpatterns = [
-   url(r'^(?P<pk>\d+)/$', views.TeamListView.as_view(), name='team_list'),  
+urlpatterns = [    
+   url(r'leagues/(?:league_name=(?P<league_name>\w+))', views.TeamListView.as_view(), name='team-list'),
+   url(r'leagues/$', views.LeagueListView.as_view(), name='league-list'),    
+   url(r'leagues/tips/$', views.PredictionsListView.as_view(), name='tips'),       
 ]
+
+"""
+resolver_match: 
+ResolverMatch(func=leagues.views.PredictionsListView, args=(), kwargs={}, url_name=tips, app_names=['leagues'], namespaces=['leagues'])
+"""

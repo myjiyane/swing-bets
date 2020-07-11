@@ -10,17 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-import os
+import os, sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+sys.path.insert(0, os.path.join(BASE_DIR, 'leagues'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%xe+nz-lciv19bb^v(ji5t+4ljlq=-&*^s5605v(f!a1a+mqnn'
+
+#Sports Monk API secrete key
+SPORT_MONKS_API_TOKEN = 'hTTazQVFHd3qCp5pRpb48k7RiaSzwuzMnS0V3jPEU47C5RHcis8a0g4Kc0RN'
+
+SPORTMONKS_URL = 'http://khanyi-PC:8089/services'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,17 +41,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    'rest_framework',
     'leagues.apps.LeaguesConfig',
+    'accounts.apps.AccountsConfig',
+    'rest_framework',
+    'requests',
     'widget_tweaks',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK='bootstrap4'
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.TemplateHTMLRenderer',
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
 
@@ -59,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'royalbets.urls'
@@ -82,13 +90,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'royalbets.wsgi.application'
 
 
-# Database
+# Database --> configuring Postgesql db engine
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'postgres',
+
+        'USER': 'postgres',
+
+        'PASSWORD': 'Sthokozile1$',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
     }
 }
 
@@ -133,3 +150,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'
+
+
+#Different ways to extract part of the incoming uri request
+#print request.path
+#print request.get_full_path
+#print request.build_absolut_uri

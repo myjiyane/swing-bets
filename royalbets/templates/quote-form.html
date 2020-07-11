@@ -1,0 +1,579 @@
+{% extends 'base.html'%}
+{% load static custom_filters%} 
+{% load crispy_forms_tags %}
+{% block title %} Home - {{ block.super }} {% endblock %}
+   {% block breadcrumb %}
+   <nav class="navbar navbar-default navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <b>Get a quote now</b> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span><a class="navbar-brand" href="#" style="color: white">Menu</a></span>    
+        </button>  
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class=" dropdown nav-item"> 
+            <a class="btn btn-responsive btn-round btn-sm ml-2 dropdown-toggle" data-toggle="dropdown" style="background-color: skyblue;">Long Term</a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="{% url 'leagues:quotes' 'life' %}" class="dropdown-item"> Life Cover </a>       
+            </div>   
+          </li>
+          <li class="dropdown nav-item"> 
+            <a class="btn btn-responsive btn-round btn-sm ml-2 dropdown-toggle" data-toggle="dropdown" style="background-color: skyblue;">Short Term</a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> Car </a> 
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> Home </a>  
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> Valuable goods </a>     
+            </div>   
+          </li> 
+          <li class="dropdown nav-item"> 
+            <a class="btn btn-responsive btn-round btn-sm ml-2 dropdown-toggle" data-toggle="dropdown" style="background-color: skyblue;">Health Care</a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> Medical Aid </a>  
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> Gap Cover </a>    
+            </div>   
+          </li>
+          <li class="dropdown nav-item"> 
+            <a class="btn btn-responsive btn-round btn-sm ml-2 dropdown-toggle" data-toggle="dropdown" style="background-color: skyblue;">Employee Benefits </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> England </a>       
+            </div>   
+          </li>     
+          <li class="dropdown nav-item"> 
+            <a class="btn btn-responsive btn-round btn-sm ml-2 dropdown-toggle" data-toggle="dropdown" style="background-color: skyblue;"> Investments</a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> Collective Investments </a>
+            </div>   
+          </li>  
+           <li class="dropdown nav-item"> 
+            <a class="btn btn-responsive btn-round btn-sm ml-2 dropdown-toggle" data-toggle="dropdown" style="background-color: skyblue;">Stockbroking</a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> England </a>       
+            </div>   
+          </li> 
+            <li class="dropdown nav-item"> 
+            <a class="btn btn-responsive btn-round btn-sm ml-2 dropdown-toggle" data-toggle="dropdown" style="background-color: skyblue;">Risk</a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="{% url 'leagues:team-list' 'epl' %}" class="dropdown-item"> England </a>       
+            </div>   
+          </li>  
+       </ul>
+      </div>
+    </div>
+</nav>
+{% endblock breadcrumb %}
+{% block content %}
+   <div class="main">
+    <div class="container">     
+      <form method="post" enctype="multipart/form-data" novalidate>
+       {% csrf_token %}
+       <div class="row">  
+       <div class="col-md-12" style="background-color: lightskyblue;"> <h5><b>PERSONAL DETAILS</b></h5></div>
+     </div> <br/>      
+       <div class="form-row">
+        <div class="form-group col-md-4 mb-0">  
+          {{ form.name|as_crispy_field }}:
+        </div>
+        <div class="form-group col-md-2 mb-0"> </div>      
+        <div class="form-group col-md-6 mb-0">  
+          {{ form.surname|as_crispy_field }}
+        </div>   
+       </div>
+       <div class="form-row">
+        <div class="form-group col-md-4 mb-0">  
+          {{ form.id|as_crispy_field }}:
+        </div>
+        <div class="form-group col-md-2 mb-0"> </div>   
+        <div class="form-group col-md-6 mb-0">  
+          {{ form.occ_bus|as_crispy_field }}
+        </div>   
+       </div>
+       <div class="row">  
+       <div class="col-md-12" style="background-color: lightgrey;"> <h6><b>CONTACT DETAILS</b></h6></div>
+     </div> 
+       <div class="form-row">
+        <div class="form-group col-md-4 mb-0">  
+          {{ form.cell_no|as_crispy_field }}:
+        </div>
+        <div class="form-group col-md-2 mb-0"> </div>   
+        <div class="form-group col-md-4 mb-0">  
+          {{ form.landline|as_crispy_field }}
+        </div>   
+       </div>
+       <div class="form-row">
+        <div class="form-group col-md-4 mb-0">  
+          {{ form.email|as_crispy_field }}
+        </div>   
+       </div>
+       <div class="form-row">
+        <div class="form-group col-md-4 mb-0">  
+          {{ form.address_1|as_crispy_field }}
+        </div>   
+       </div> 
+       <div class="form-row">
+        <div class="form-group col-md-4 mb-0">  
+          {{ form.address_2|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-2 mb-0"> </div>      
+        <div class="form-group col-md-1 mb-0">  
+          {{ form.postal_cd|as_crispy_field }}
+        </div> 
+       </div>
+       <div class="row">  
+        <div class="col-md-12" style="background-color: lightskyblue;"> <h5><b>PREVIOUS INSURANCE DETAILS</b></h5></div>   
+       </div> 
+        <div class="form-row">
+         <div class="form-group col-md-5 mb-0">  
+          {{ form.current_insurer|as_crispy_field }}
+         </div>   
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-12 mb-0">  
+           <b>Permission for ITC check?</b> <small style="color: grey;">(ITC checks are performed in accordance with insurers’ need to accurately assess risk. Information obtained is used solely for this purpose)</small>
+         </div>   
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-1 mb-0">  
+           {{ form.itc_check|as_crispy_field }}
+         </div>
+        </div>   
+        <div class="row">  
+         <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>CLAIM HISTORY</b></h6></div> 
+        </div><br/>
+        <div class="row">  
+         <div class="col-md-2 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Year</b></h6>
+            </div> 
+          <div class="col-md-5 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Claims</b></h6>
+            </div>
+            <div class="col-md-5 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Claims value</b></h6>
+            </div>
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.year|as_crispy_field }}
+         </div> 
+          <div class="form-group col-md-5  mb-0">  
+                    {{ form.claims|as_crispy_field }}
+                  </div>
+          <div class="form-group col-md-5 mb-0">  
+            {{ form.claims_value|as_crispy_field }}
+          </div> 
+         </div>
+          {% if quote_type == 'home' or quote_type == 'car_and_home' %}
+         <div class="row">  
+          <div class="col-md-12" style="background-color: lightskyblue;"> <h5><b>HOUSEHOLDS CONTENTS (PRIMARY RESIDENCE)</b></h5></div>   
+         </div> <br/>
+          <div class="form-row">
+           <div class="form-group col-md-6 mb-0">  
+            {{ form.primary_address_1|as_crispy_field }}
+           </div>  
+         </div>
+        <div class="form-row">
+           <div class="form-group col-md-6 mb-0">  
+            {{ form.primary_address_2|as_crispy_field }}
+           </div> 
+            <div class="form-group col-md-1 mb-0"> </div>
+           <div class="form-group col-md-2 mb-0">  
+            {{ form.primary_postal_cd|as_crispy_field }}
+           </div>
+         </div>   
+         <div class="row">  
+          <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>INSURED AMOUNTS</b></h6></div> 
+         </div>
+        <div class="form-row">
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.primary_wild_baloons_amt|as_crispy_field }}
+         </div>
+          <div class="form-group col-md-1 mb-0">  </div>    
+           <div class="form-group col-md-2 mb-0">  
+            {{ form.primary_accidental_damage_amt|as_crispy_field }}
+           </div>    
+         <div class="form-group col-md-1 mb-0">  </div>    
+         <div class="form-group col-md-3 mb-0">  
+          {{ form.primary_mech_breakdown_amt|as_crispy_field }}
+         </div> 
+        </div>  
+        <div class="form-row">
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.primary_insured_amt|as_crispy_field }}
+         </div>
+        <div class="form-group col-md-2 mb-0">  </div>    
+         <div class="form-group col-md-2  mb-0">  
+           {{ form.primary_power_surge_amt|as_crispy_field }}
+         </div>
+         <div class="form-group col-md-1 mb-0">  </div> 
+        </div>
+        <div class="row">  
+          <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>RESIDENCE TYPE</b></h6></div> 
+         </div> 
+        <div class="form-row">
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.primary_residence_type|as_crispy_field }}
+         </div>     
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-8 mb-0">  
+            {{ form.primary_residence_type_other|as_crispy_field }}
+         </div> 
+        </div> 
+        <div class="row">  
+          <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>SECURITY MEASURES (Please tick where applicable)</b></h6></div> 
+         </div> 
+         <div class="form-row">
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div>
+        <div class="form-group col-md-3 mb-0">  </div>    
+         <div class="form-group col-md-3 mb-0">  
+          {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div> 
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div>
+        <div class="form-group col-md-3 mb-0">  </div>    
+         <div class="form-group col-md-3 mb-0">  
+          {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div> 
+        </div> 
+        <div class="form-row">
+         <div class="form-group col-md-8 mb-0">  
+             Is the residence in a high security complex with access control, 24 hour security patrols and electric fence?
+         </div>
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-1 mb-0">  
+            {{ form.primary_high_security|as_crispy_field }}
+         </div>    
+        </div> 
+        <div class="row">  
+          <div class="col-md-12" style="background-color: lightskyblue;"> <h5><b>HOUSEHOLDS CONTENTS (SECONDARY RESIDENCE)</b></h5></div>   
+         </div> 
+         <div class="form-row">
+           <div class="form-group col-md-6 mb-0">  
+            {{ form.secondary_address_1|as_crispy_field }}
+           </div>  
+         </div>
+        <div class="form-row">
+           <div class="form-group col-md-6 mb-0">  
+            {{ form.secondary_address_2|as_crispy_field }}
+           </div> 
+            <div class="form-group col-md-1 mb-0"> </div>
+           <div class="form-group col-md-2 mb-0">  
+            {{ form.secondary_postal_cd|as_crispy_field }}
+           </div>
+         </div>   
+         <div class="row">  
+          <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>INSURED AMOUNTS</b></h6></div> 
+         </div>
+        <div class="form-row">
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.secondary_wild_baloons_amt|as_crispy_field }}
+         </div>
+          <div class="form-group col-md-1 mb-0">  </div>    
+           <div class="form-group col-md-2 mb-0">  
+            {{ form.secondary_accidental_damage_amt|as_crispy_field }}
+           </div>    
+         <div class="form-group col-md-1 mb-0">  </div>    
+         <div class="form-group col-md-3 mb-0">  
+          {{ form.secondary_mech_breakdown_amt|as_crispy_field }}
+         </div> 
+        </div>  
+        <div class="form-row">
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.secondary_insured_amt|as_crispy_field }}
+         </div>
+        <div class="form-group col-md-2 mb-0">  </div>    
+         <div class="form-group col-md-2  mb-0">  
+           {{ form.secondary_power_surge_amt|as_crispy_field }}
+         </div>
+         <div class="form-group col-md-1 mb-0">  </div> 
+        </div>
+        <div class="row">  
+          <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>RESIDENCE TYPE</b></h6></div> 
+         </div> 
+        <div class="form-row">
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.secondary_residence_type|as_crispy_field }}
+         </div>     
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-8 mb-0">  
+            {{ form.primary_residence_type_other|as_crispy_field }}
+         </div> 
+        </div> 
+        <div class="row">  
+          <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>SECURITY MEASURES (Please tick where applicable)</b></h6></div> 
+         </div> 
+         <div class="form-row">
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div>
+        <div class="form-group col-md-3 mb-0">  </div>    
+         <div class="form-group col-md-3 mb-0">  
+          {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div> 
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div>
+        <div class="form-group col-md-3 mb-0">  </div>    
+         <div class="form-group col-md-3 mb-0">  
+          {{ form.primary_residence_sec_meas|as_crispy_field }}
+         </div> 
+        </div> 
+        <div class="form-row">
+         <div class="form-group col-md-8 mb-0">  
+             Is the residence in a high security complex with access control, 24 hour security patrols and electric fence?
+         </div>
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-1 mb-0">  
+            {{ form.primary_high_security|as_crispy_field }}
+         </div>    
+        </div> <br/>
+        <div class="row">  
+          <div class="col-md-12" style="background-color: lightskyblue;"> <h5><b>UNSPECIFIED RISK</b></h5></div>   
+         </div> <br/>
+         <div class="row">  
+         <div class="col-md-6 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Specified Items:</b></h6>
+          </div> 
+          <div class="col-md-1 mb-0">  
+          </div>
+          <div class="col-md-5 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Insured Amount:</b></h6>
+          </div>
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-6 mb-0">  
+            {{ form.unspec_risk_1|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-5 mb-0">  
+            {{ form.unspec_risk_amt_1|as_crispy_field }}
+         </div>    
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-6 mb-0">  
+            {{ form.unspec_risk_2|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-5 mb-0">  
+            {{ form.unspec_risk_amt_2|as_crispy_field }}
+         </div>    
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-6 mb-0">  
+            {{ form.unspec_risk_3|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-5 mb-0">  
+            {{ form.unspec_risk_amt_3|as_crispy_field }}
+         </div>    
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-6 mb-0">  
+            {{ form.unspec_risk_4|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-5 mb-0">  
+            {{ form.unspec_risk_amt_4|as_crispy_field }}
+         </div>    
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-6 mb-0">  
+            {{ form.unspec_risk_5|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-5 mb-0">  
+            {{ form.unspec_risk_amt_5|as_crispy_field }}
+         </div>    
+        </div><br/>
+        {% endif %}
+          
+        {% if quote_type == 'car' or quote_type == 'car_and_home' %}
+        <div class="row">  
+          <div class="col-md-12" style="background-color: lightskyblue;"> <h5><b>MOTOR VEHICLE 1 - OWNER &amp; DRIVER DETAILS </b></h5></div>   
+         </div>
+        <div class="form-row">
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.owner_name_motor_1|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-3 mb-0">  
+            {{ form.owner_surname_motor_1|as_crispy_field }}
+         </div>   
+        </div>
+        <div class="row">  
+          <div class="col-md-12" style="background-color: lightskyblue;"> <h5><b>REGULAR DRIVER DETAILS </b></h5></div>   
+         </div>
+        <div class="form-row">
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.name_motor_1|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.surname_motor_1|as_crispy_field }}
+         </div>  
+        <div class="form-group col-md-1 mb-0">  </div> 
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.ID_motor_1|as_crispy_field }}
+         </div> 
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.licence_cd_motor_1|as_crispy_field }}
+         </div> 
+         <div class="form-group col-md-1 mb-0">  </div>     
+         <div class="form-group col-md-2 mb-0">  
+            {{ form.date_of_lic_motor_1|as_crispy_field }}
+         </div> 
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-4 mb-0">  
+            {{ form.addr1_motor_1|as_crispy_field }}
+         </div>  
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-4 mb-0">  
+            {{ form.addr2_motor_1|as_crispy_field }}
+         </div>  
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-1 mb-0">  
+            {{ form.postal_motor_1|as_crispy_field }}
+         </div>  
+        </div>  
+        <div class="form-row">
+         <div class="form-group col-md-4 mb-0">  
+            Does the regular driver have a three year University degree?
+         </div>
+         <div class="form-group col-md-1 mb-0">  
+            {{ form.degree_motor_1|as_crispy_field }}
+         </div>    
+        </div><br/>
+        <div class="row">  
+          <div class="col-md-12" style="background-color: darkgrey;"> <h6><b>Vehicle 1 - Regular driver claims history </b></h6></div> 
+         </div><br/>
+        <div class="row">  
+         <div class="col-md-1 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Year</b></h6>
+            </div> 
+          <div class="col-md-1 mb-0">  
+            </div>
+          <div class="col-md-6 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Claims type</b></h6>
+            </div>
+            <div class="col-md-1 mb-0">  
+            </div>
+            <div class="col-md-2 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Claims value</b></h6>
+            </div>
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-1 mb-0">  
+            {{ form.claim_year_motor_1|as_crispy_field }}
+         </div>  
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-4 mb-0">  
+            {{ form.claim_type_motor_1|as_crispy_field }}
+         </div>
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-4 mb-0">  
+            {{ form.claim_value_motor_1|as_crispy_field }}
+         </div>    
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-1 mb-0">  
+            {{ form.cover_motor_1|as_crispy_field }}
+         </div> 
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-1 mb-0">  
+            {{ form.additional_cover_motor_1|as_crispy_field }}
+         </div> 
+        </div> 
+        <div class="row">  
+         <div class="col-md-12 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Vehicle 1 - Vehicle details</b></h6>
+            </div>
+        </div>
+        <div class="form-row">
+         <div class="form-group col-md-1 mb-0">  
+            {{ form.year_motor_1|as_crispy_field }}
+         </div> 
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.reg_motor_1|as_crispy_field }}
+         </div> 
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.engine_motor_1|as_crispy_field }}
+         </div>
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.vin_motor_1|as_crispy_field }}
+         </div> 
+        </div> 
+        <div class="form-row">
+         <div class="form-group col-md-4 mb-0">  
+            {{ form.make_motor_1|as_crispy_field }}
+         </div> 
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.model_motor_1|as_crispy_field }}
+         </div> 
+        </div> <br/>
+        <div class="row">  
+         <div class="col-md-12 mb-0"  style="background-color: lightgrey;">  
+            <h6><b>Vehicle 1 - Other </b></h6>
+            </div>
+        </div><br/>  
+        <div class="form-row">
+         <div class="form-group col-md-4 mb-0">  
+            {{ form.use_motor_1|as_crispy_field }}
+         </div> 
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.night_park_motor_1|as_crispy_field }}
+         </div> 
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.sec_motor_1|as_crispy_field }}
+         </div>
+        <div class="col-md-1 mb-0">  
+         </div>
+        <div class="form-group col-md-2 mb-0">  
+            {{ form.other_motor_1|as_crispy_field }}
+         </div>
+        </div>
+        {% endif %}
+       <br/>
+       <div class="form-row">      
+        <div class="form-group col-md-2 mb-0"> 
+         <button type="submit" class="btn btn-responsive btn-default btn-sm btn-block">Cancel</button>    
+        </div>
+        <div class="form-group col-md-2 mb-0"> 
+         <button type="submit" class="btn btn-responsive btn-info btn-sm btn-block">Submit</button>    
+        </div>
+       </div>       
+  </form>          
+ {% endblock content %}

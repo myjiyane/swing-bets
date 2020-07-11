@@ -1,15 +1,11 @@
 {% extends 'base.html' %}
-
 {% load static %} 
-
-{% block navilinks %} 
-
-{% endblock %}
 
 {% block breadcrumb %}
   <nav aria-label="breadcrumb" role="navigation">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active"><a href="{% url 'home'  %}">Leagues</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>   
+    <li class="breadcrumb-item active">Leagues</li>
   </ol>
 </nav>
 {% endblock %}
@@ -22,24 +18,127 @@
 {% endblock %}
 
 {% block content %}
- <table class="table">
-   <thead class="thead-inverse">
-   <tr> 
-   <th>Name</th>
-   <th>Division</th>
-   <th>Country</th>
-   <th>Federation</th>
-   </tr>
-   </thead>
+<div class="row">     
+ <div class="col-md-5 col-sm-5 col-lg-5">
+  <h3><small>England:</small> </h3>
+            
+  <div class="table-responsive-lg table-responsive-md table-responsive-sm">
+   <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+     <tr> 
+      <th width="18%">#</th>
+      <th>Name</th>
+     </tr>
+    </thead>
    <tbody>
-    {% for league in leagues %}
-    <tr>
-    <td class="align-middle">{{ league.league_name }}</td>
-    <td class="align-middle">{{ league.division }}</td>
-    <td class="align-middle"> {{ league.country_name }} </td>
-    <td class="align-middle"> {{ league.federation_name }}</td>
-    </tr>
-    {% endfor %}
+    {% for eng in england.all %}
+     <tr>
+      <td class="align-middle">{{ eng.country_name }}</td>
+      <td class="align-middle">{{ eng.league_name }}</td>
+     </tr>
+     {% endfor %}
    </tbody>
   </table> 
+  </div>
+ </div>
+ <div class="col-md-6 col-sm-6 col-lg-2"> </div> 
+ <div class="col-md-5 col-sm-5 col-lg-5">
+  <h3><small>Spain:</small> </h3>
+            
+  <div class="table-responsive-lg table-responsive-md table-responsive-sm">
+   <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+     <tr> 
+      <th width="18%">#</th>
+      <th>Name</th>
+     </tr>
+    </thead>
+   <tbody>
+    {% for eng in spain.all %}
+     <tr>
+      <td class="align-middle">{{ eng.country_name }}</td>
+      <td class="align-middle">{{ eng.league_name }}</td>
+     </tr>
+     {% endfor %}
+   </tbody>
+  </table> 
+  </div>
+ </div>   
+</div>
+<div class="row">     
+ <div class="col-md-12 col-xs-6 col-sm-6 col-lg-12"><h3><small>Advertisement</small> </h3></div>
+</div>
+
+<div class="row">     
+  <div class="col-md-5 col-sm-5 col-lg-5">
+   <h3><small>Italy:</small> </h3>
+            
+  <div class="table-responsive-lg table-responsive-md table-responsive-sm">
+   <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+     <tr> 
+      <th width="40%">#</th>
+      <th>Name</th>
+     </tr>
+    </thead>
+   <tbody>
+    {% for ita in italy.all %}
+     <tr>
+      <td class="align-middle">{{ ita.country_name }}</td>
+      <td class="align-middle">{{ ita.league_name }}</td>
+     </tr>
+     {% endfor %}
+   </tbody>
+  </table> 
+  </div>
+ </div>
+ <div class="col-md-6 col-sm-6 col-lg-2"> </div>
+ 
+ <div class="col-md-5 col-sm-5 col-lg-5">
+  <h3><small>South Africa:</small> </h3>
+            
+  <div class="table-responsive-lg table-responsive-md table-responsive-sm">
+   <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+     <tr> 
+      <th width="30%">#</th>
+      <th>Name</th>
+     </tr>
+    </thead>
+   <tbody>
+    {% for sa in rsa.all %}
+     <tr>
+      <td class="align-middle">South Africa</td>
+      <td class="align-middle">Primier Soccer League </td>
+     </tr>
+     {% endfor %}
+   </tbody>
+  </table> 
+  </div>
+ </div>    
+</div>
+<div class="row">     
+  <div class="col-md-5 col-sm-5 col-lg-5">
+   <h3><small>Other Leagues:</small> </h3>
+   <div class="table-responsive-lg table-responsive-md table-responsive-sm">
+   <table class="table table-lg table-md table-sm table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+     <tr> 
+      <th width="30%">#</th>
+      <th>Name</th>
+     </tr>
+    </thead>
+   <tbody>
+    {% for leag in leagues.all %}
+     <tr>
+      <td class="align-middle">{{ leag.country_name }}</td>
+      <td class="align-middle">{{leag.league_name }} </td>
+     </tr>
+     {% endfor %}
+   </tbody>
+  </table> 
+  </div>                
+  </div>      
+</div>    
+
 {% endblock %}

@@ -1,0 +1,24 @@
+"""class HomeListView(ListView):
+    """
+    """List all leagues, latest footballing tips, scores, and match schedules"""
+    """
+    serializser_class = TeamSerializer("json", many=True)
+    template_name = 'thorn.html'
+    
+    def get_queryset(self):
+        queryset = Match.objects.all()
+        return queryset
+   
+    def get_context_data(self, **kwargs):
+        tDate = timezone.now() 
+        today = tDate.strftime("%Y-%m-%d")
+        yestDate = (tDate - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        tomorDate = (tDate + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+         
+        kwargs['matches_all'] = self.get_queryset
+        kwargs['matches_today'] = self.get_queryset().filter(start_time = today)
+        kwargs['matches_yest'] = self.get_queryset().filter(start_time = yestDate)
+        kwargs['matches_tomor'] = self.get_queryset().filter(start_time = tomorDate)
+        kwargs['all_mkts'] = AvailableMarkets.objects.all()
+        context = super(HomeListView, self).get_context_data(**kwargs)
+        return context"""
